@@ -552,65 +552,63 @@ button:active {
   
 /* === 音乐播放器舱体 (位置修正版) === */
 #yorha-music-pod {
+    /* 1. 绝对定位：右上角 */
     position: fixed !important;
+    top: 60px !important;    /* 导航栏下方 */
+    right: 15px !important;  /* 靠右 */
     
-    /* 【关键位置调整】 */
-    /* 导航栏通常是 50-60px，这里设为 80px 刚好在它下面 */
-    top: 80px !important; 
+    /* 2. 尺寸调整：改窄一点，因为 ON/OFF 字很短 */
+    width: 90px; 
     
-    /* 靠右距离 */
-    right: 20px !important;
-    
-    z-index: 9; /* 保证浮在最上层 */
-    
-    /* 外观设置 */
-    background: rgba(43, 43, 43, 0.95); /* 加深一点背景防止透字 */
+    /* 3. 外观风格 */
+    background: rgba(30, 30, 30, 0.95);
     border: 1px solid #5d5a4b;
-    padding: 10px;
-    width: 120px;
+    padding: 8px;
+    z-index: 99999; /* 最顶层 */
     
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    /* 装饰效果 */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
 }
 
-/* 按钮样式微调 (适应中文字符) */
-#pod-toggle-btn {
-    width: 100%;
-    background: #2b2b2b;
-    color: #888;
-    border: 1px solid #555;
-    font-size: 13px; /* 中文稍微大一点点好认 */
-    cursor: pointer;
-    padding: 5px 0;
-    font-family: "Microsoft YaHei", monospace; /* 确保中文显示正常 */
-    transition: all 0.2s;
-    letter-spacing: 2px; /* 字间距，更有科技感 */
-}
-
-/* 激活状态 */
-#pod-toggle-btn.active {
-    background: #dcd8c0;
-    color: #2b2b2b;
-    border-color: #dcd8c0;
-    box-shadow: 0 0 8px rgba(220, 216, 192, 0.5);
-}
-
-/* 标题和其他样式保持不变... */
+/* 标题文字 SYSTEM BGM */
 .pod-title {
     color: #888;
-    font-size: 10px;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-    font-family: monospace;
+    font-size: 10px; /* 字体改小，更像机器参数 */
     text-align: center;
+    margin-bottom: 4px;
+    font-family: monospace; /* 机械字体 */
+    letter-spacing: 0px;
+}
+
+/* 按钮样式 */
+#pod-toggle-btn {
+    width: 100%;
+    
+    /* 默认状态 (OFF) */
+    background: #2b2b2b; 
+    color: #888;
+    border: 1px solid #444;
+    
+    cursor: pointer;
+    padding: 2px 0; /* 变薄一点 */
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    transition: all 0.2s;
+}
+
+/* 鼠标悬停 */
+#pod-toggle-btn:hover {
+    border-color: #dcd8c0;
+    color: #dcd8c0;
 }
 
 /* 手机端适配：位置也相应下移 */
 @media screen and (max-width: 768px) {
     #yorha-music-pod {
         top: auto !important; /* 手机上取消顶部定位 */
-        bottom: 10px !important; /* 改为放在右下角，方便大拇指按 */
+        bottom: 20px !important; /* 改为放在右下角，方便大拇指按 */
         right: 20px !important;
         transform: scale(0.9);
     }
@@ -623,9 +621,10 @@ button:active {
     }
 
   
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* === YoRHa BGM Module (Low Volume Edition) === */
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* === YoRHa BGM Module (ON/OFF Logic) === */
 
 function createMusicPod() {
+    // 防止重复创建
     if (document.getElementById('yorha-music-pod')) return;
 
     var pod = document.createElement('div');
@@ -634,16 +633,17 @@ function createMusicPod() {
     var audio = document.createElement('audio');
     audio.id = 'bgm-player';
     audio.loop = true; 
+    // 你提供的新音乐链接
     audio.src = 'https://github.com/xyz7772/rjdlweb/raw/refs/heads/main/bgms/%E6%97%A0%E7%9F%A5%E4%B9%8B%E6%81%B6%E7%BA%B3%E6%B3%A2%E5%B0%94(2%E9%98%B6%E6%AE%B5).mp3'; 
     
-    // ★★★ 关键设置：这里控制最大音量 (0.1 - 1.0) ★★★
-    // 0.4 代表 40% 音量，觉得还大就改成 0.3
+    // 最大音量设置 (0.4 = 40%)
     var maxVolume = 0.4; 
 
+    // 初始界面：默认为 OFF
     pod.innerHTML = `
         <div class="pod-controls">
-            <div class="pod-title">SYSTEM BGM</div>
-            <button id="pod-toggle-btn">播放 / PLAY</button>
+            <div class="pod-title">SYS. BGM</div>
+            <button id="pod-toggle-btn">PLAY</button>
         </div>
     `;
 
@@ -655,39 +655,41 @@ function createMusicPod() {
             btn.addEventListener('click', function() {
                 
                 if (audio.paused) {
-                    // --- 播放逻辑 ---
-                    audio.volume = 0; // 先静音
+                    // --- 播放逻辑 (变为 ON) ---
+                    audio.volume = 0; // 先静音准备淡入
                     
                     audio.play().then(() => {
-                        btn.innerText = "OFF";
-                        btn.style.color = "#2b2b2b";
-                        btn.style.background = "#dcd8c0";
+                        // 状态变为 ON (亮色背景)
+                        btn.innerText = "ON";
+                        btn.style.color = "#2b2b2b";      // 深色字
+                        btn.style.background = "#dcd8c0"; // 米色亮背景
 
-                        // 淡入计时器
+                        // 音量淡入动画
                         var fadeTimer = setInterval(function() {
-                            // 如果还没到最大音量，就一点点加
                             if (audio.volume < maxVolume) {
-                                // 这里的 0.01 是每次增加的幅度，数字越小淡入越慢
                                 audio.volume = Math.min(maxVolume, audio.volume + 0.01);
                             } else {
-                                clearInterval(fadeTimer); // 到了就停止增加
+                                clearInterval(fadeTimer);
                             }
-                        }, 50); // 每 50毫秒执行一次
+                        }, 50); 
 
-                    }).catch(e => alert("播放失败"));
+                    }).catch(e => alert("播放被拦截，请再试一次"));
 
                 } else {
-                    // --- 暂停逻辑 ---
+                    // --- 暂停逻辑 (变为 OFF) ---
                     audio.pause();
-                    btn.innerText = "ON";
-                    btn.style.color = "#888";
-                    btn.style.background = "#2b2b2b";
+                    
+                    // 状态变为 OFF (深色背景)
+                    btn.innerText = "OFF";
+                    btn.style.color = "#888";         // 灰色字
+                    btn.style.background = "#2b2b2b"; // 深色暗背景
                 }
             });
         }
     }, 500);
 }
 
+// 启动
 createMusicPod();
 setInterval(createMusicPod, 1000);</script><tw-passagedata pid="1" name="Start" tags="" position="700,275" size="100,100">&lt;div style=&quot;text-align: center; margin-top: 30px;&quot;&gt; &lt;img src=&quot;https://files.wujicode.cn/w/open/dnf_universe_app/g6BgVUJh.jpeg&quot; 
          alt=&quot;公会主视觉&quot;
