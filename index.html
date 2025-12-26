@@ -400,21 +400,30 @@ button:active {
 /* 手机端适配：屏幕变窄时变成上下排列 */
 @media screen and (max-width: 768px) {
     .profile-container {
-        flex-direction: column; /* 变成垂直排列 */
-        gap: 20px;
+        flex-direction: column; 
+        /* 1. 把原来的 20px 改小，比如 10px 或 8px */
+        gap: 10px; 
         padding: 15px;
     }
 
     .profile-left {
         max-width: 200px !important; 
         
-        margin: 0 auto 20px auto; /* 图片居中，且底部留出空隙 */
+        /* 2. 注意这里！把原来的 '0 auto 20px auto' 改掉 */
+        /* 去掉下方的 20px，只保留左右居中 */
+        margin: 0 auto; 
+        
         width: 100%;
     }
     
     .profile-left img {
         width: 100% !important;
         max-width: 100% !important; 
+    }
+  
+    /* 3. 这个也可以去掉或者设为0，因为上面已经有 gap: 10px 了 */
+    .profile-image {
+      margin-bottom: 0; 
     }
 }
 
