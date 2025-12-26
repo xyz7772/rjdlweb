@@ -241,11 +241,11 @@ h2 { margin-top: 10px; border-left: 5px solid #dcd8c0; padding-left: 10px; text-
 }
 
 .members-bg-wrapper {
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.48)), url('https://files.wujicode.cn/w/open/dnf_universe_app/HPcF1jAn.png');
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://files.wujicode.cn/w/open/dnf_universe_app/HPcF1jAn.png');
 }
 
 .guildintro-bg-wrapper {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.65)), url('https://files.wujicode.cn/w/open/dnf_universe_app/ad7QGHkK.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://files.wujicode.cn/w/open/dnf_universe_app/ad7QGHkK.jpg');
 }
 
 @media screen and (max-width: 768px) {
@@ -550,84 +550,71 @@ button:active {
     }
   
   
-  	/* === 音乐播放器舱体 (Audio Pod) === */
+/* === 音乐播放器舱体 (位置修正版) === */
+#yorha-music-pod {
+    position: fixed !important;
+    
+    /* 【关键位置调整】 */
+    /* 导航栏通常是 50-60px，这里设为 80px 刚好在它下面 */
+    top: 80px !important; 
+    
+    /* 靠右距离 */
+    right: 20px !important;
+    
+    z-index: 9; /* 保证浮在最上层 */
+    
+    /* 外观设置 */
+    background: rgba(43, 43, 43, 0.95); /* 加深一点背景防止透字 */
+    border: 1px solid #5d5a4b;
+    padding: 10px;
+    width: 120px;
+    
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+
+/* 按钮样式微调 (适应中文字符) */
+#pod-toggle-btn {
+    width: 100%;
+    background: #2b2b2b;
+    color: #888;
+    border: 1px solid #555;
+    font-size: 13px; /* 中文稍微大一点点好认 */
+    cursor: pointer;
+    padding: 5px 0;
+    font-family: "Microsoft YaHei", monospace; /* 确保中文显示正常 */
+    transition: all 0.2s;
+    letter-spacing: 2px; /* 字间距，更有科技感 */
+}
+
+/* 激活状态 */
+#pod-toggle-btn.active {
+    background: #dcd8c0;
+    color: #2b2b2b;
+    border-color: #dcd8c0;
+    box-shadow: 0 0 8px rgba(220, 216, 192, 0.5);
+}
+
+/* 标题和其他样式保持不变... */
+.pod-title {
+    color: #888;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    font-family: monospace;
+    text-align: center;
+}
+
+/* 手机端适配：位置也相应下移 */
+@media screen and (max-width: 768px) {
     #yorha-music-pod {
-        position: fixed;
-        top: 70px; /* 避开顶部 50px 的导航栏 */
-        right: 20px;
-        z-index: 9999;
-
-        /* 核心外观 */
-        background: rgba(43, 43, 43, 0.9);
-        border: 1px solid #5d5a4b;
-        padding: 10px;
-        width: 120px;
-
-        /* 初始状态：隐藏不需要的部分 */
-        transition: all 0.3s ease;
-        backdrop-filter: blur(5px);
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        top: auto !important; /* 手机上取消顶部定位 */
+        bottom: 10px !important; /* 改为放在右下角，方便大拇指按 */
+        right: 20px !important;
+        transform: scale(0.9);
     }
-
-    /* 标题文字 */
-    .pod-title {
-        color: #888;
-        font-size: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 5px;
-        font-family: monospace;
-        text-align: center;
-    }
-
-    /* 开关按钮 */
-    #pod-toggle-btn {
-        width: 100%;
-        background: #2b2b2b;
-        color: #888;
-        border: 1px solid #555;
-        font-size: 12px;
-        cursor: pointer;
-        padding: 4px 0;
-        font-family: monospace;
-        transition: all 0.2s;
-    }
-
-    /* 激活状态（播放中） */
-    #pod-toggle-btn.active {
-        background: #dcd8c0;
-        color: #2b2b2b;
-        border-color: #dcd8c0;
-        box-shadow: 0 0 8px rgba(220, 216, 192, 0.5);
-    }
-
-    /* === 简单的可视化动画条 === */
-    .pod-visualizer {
-        display: flex;
-        justify-content: center;
-        gap: 3px;
-        height: 0; /* 默认高度为0，隐藏 */
-        overflow: hidden;
-        transition: height 0.3s;
-        margin-top: 0;
-    }
-
-    /* 播放时展开动画条 */
-    .music-pod-open .pod-visualizer {
-        height: 20px;
-        margin-top: 8px;
-    }
-
-    .pod-visualizer span {
-        width: 4px;
-        background: #dcd8c0;
-        animation: equalizer 1s infinite ease-in-out;
-    }
-
-    /* 让每根条跳动不一样 */
-    .pod-visualizer span:nth-child(1) { animation-delay: 0.0s; height: 40%; }
-    .pod-visualizer span:nth-child(2) { animation-delay: 0.2s; height: 80%; }
-    .pod-visualizer span:nth-child(3) { animation-delay: 0.4s; height: 60%; }
-    .pod-visualizer span:nth-child(4) { animation-delay: 0.1s; height: 100%; }
+}
 
     @keyframes equalizer {
         0% { height: 20%; opacity: 0.5; }
@@ -635,76 +622,74 @@ button:active {
         100% { height: 20%; opacity: 0.5; }
     }
 
-    /* === 手机端适配 === */
-    @media screen and (max-width: 768px) {
-        #yorha-music-pod {
-            top: auto;
-            bottom: 20px; /* 手机上放右下角比较好按 */
-            right: 20px;
-            transform: scale(0.9);
-        }
-    }
+  
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* === YoRHa BGM Module (Low Volume Edition) === */
 
-  
-  
-  
-  
-  
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* 确保没有 <script> 标签，直接复制下面的代码 */
+function createMusicPod() {
+    if (document.getElementById('yorha-music-pod')) return;
 
-// 1. 检查是否已经存在（防止重复生成）
-if (!document.getElementById('yorha-music-pod')) {
-
-    // 2. 创建容器
     var pod = document.createElement('div');
     pod.id = 'yorha-music-pod';
-    pod.className = 'music-pod-closed'; 
-
-    // 3. 创建音频元素 (记得换链接)
+    
     var audio = document.createElement('audio');
     audio.id = 'bgm-player';
     audio.loop = true; 
-    audio.src = 'https://github.com/xyz7772/XYZExistence/blob/main/bgms/MONACA%2C%E5%B2%A1%E9%83%A8%E5%95%93%E4%B8%80%20-%20%E3%82%AB%E3%82%A4%E3%83%8D%EF%BC%8F%E6%95%91%E6%B8%88.mp3'; 
+    audio.src = 'https://github.com/xyz7772/rjdlweb/raw/refs/heads/main/bgms/%E6%97%A0%E7%9F%A5%E4%B9%8B%E6%81%B6%E7%BA%B3%E6%B3%A2%E5%B0%94(2%E9%98%B6%E6%AE%B5).mp3'; 
     
-    // 4. 创建界面结构
+    // ★★★ 关键设置：这里控制最大音量 (0.1 - 1.0) ★★★
+    // 0.4 代表 40% 音量，觉得还大就改成 0.3
+    var maxVolume = 0.4; 
+
     pod.innerHTML = `
         <div class="pod-controls">
-            <div class="pod-title">BGM MODULE</div>
-            <button id="pod-toggle-btn">OFF</button>
-        </div>
-        <div class="pod-visualizer">
-            <span></span><span></span><span></span><span></span>
+            <div class="pod-title">SYSTEM BGM</div>
+            <button id="pod-toggle-btn">播放 / PLAY</button>
         </div>
     `;
 
-    // 5. 暴力插入：直接挂在 HTML 最外层，确保谁也挡不住
     document.documentElement.appendChild(pod);
 
-    // 6. 绑定点击事件
-    setTimeout(function() { // 稍微等一毫秒，确保按钮生成了再绑定
+    setTimeout(function() {
         var btn = document.getElementById('pod-toggle-btn');
-        var visualizer = pod.querySelector('.pod-visualizer');
-
         if(btn) {
             btn.addEventListener('click', function() {
+                
                 if (audio.paused) {
+                    // --- 播放逻辑 ---
+                    audio.volume = 0; // 先静音
+                    
                     audio.play().then(() => {
-                        btn.innerText = "ON";
-                        btn.classList.add('active');
-                        pod.classList.remove('music-pod-closed');
-                        pod.classList.add('music-pod-open');
-                    }).catch(e => alert("播放失败：请检查音乐链接是否正确，或浏览器禁止自动播放"));
+                        btn.innerText = "OFF";
+                        btn.style.color = "#2b2b2b";
+                        btn.style.background = "#dcd8c0";
+
+                        // 淡入计时器
+                        var fadeTimer = setInterval(function() {
+                            // 如果还没到最大音量，就一点点加
+                            if (audio.volume < maxVolume) {
+                                // 这里的 0.01 是每次增加的幅度，数字越小淡入越慢
+                                audio.volume = Math.min(maxVolume, audio.volume + 0.01);
+                            } else {
+                                clearInterval(fadeTimer); // 到了就停止增加
+                            }
+                        }, 50); // 每 50毫秒执行一次
+
+                    }).catch(e => alert("播放失败"));
+
                 } else {
+                    // --- 暂停逻辑 ---
                     audio.pause();
-                    btn.innerText = "OFF";
-                    btn.classList.remove('active');
-                    pod.classList.remove('music-pod-open');
-                    pod.classList.add('music-pod-closed');
+                    btn.innerText = "ON";
+                    btn.style.color = "#888";
+                    btn.style.background = "#2b2b2b";
                 }
             });
         }
-    }, 100);
-}</script><tw-passagedata pid="1" name="Start" tags="" position="700,275" size="100,100">&lt;div style=&quot;text-align: center; margin-top: 30px;&quot;&gt; &lt;img src=&quot;https://files.wujicode.cn/w/open/dnf_universe_app/g6BgVUJh.jpeg&quot; 
+    }, 500);
+}
+
+createMusicPod();
+setInterval(createMusicPod, 1000);</script><tw-passagedata pid="1" name="Start" tags="" position="700,275" size="100,100">&lt;div style=&quot;text-align: center; margin-top: 30px;&quot;&gt; &lt;img src=&quot;https://files.wujicode.cn/w/open/dnf_universe_app/g6BgVUJh.jpeg&quot; 
          alt=&quot;公会主视觉&quot;
          style=&quot;width: 100%; 
                 max-width: 900px; 
