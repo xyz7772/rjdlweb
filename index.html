@@ -415,10 +415,10 @@ button:active {
     }
     
     .profile-left img {
-      height: 200px !important; 
-
-      /* 2. 必加！防止图片被压扁或拉长 */
-      object-fit: cover;
+        width: 100%
+        height: 210px
+        object-fit: contain; 
+        background-color: transparent;
     }
   
     /* 3. 这个也可以去掉或者设为0，因为上面已经有 gap: 10px 了 */
