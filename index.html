@@ -407,18 +407,18 @@ button:active {
     }
 
     .profile-left {
-        max-width: 150px !important; 
+        max-width: 180px !important; 
         
-        /* 2. 注意这里！把原来的 '0 auto 20px auto' 改掉 */
-        /* 去掉下方的 20px，只保留左右居中 */
         margin: 0 auto; 
         
         width: 100%;
     }
     
     .profile-left img {
-        width: 100% !important;
-        max-width: 100% !important; 
+      height: 200px !important; 
+
+      /* 2. 必加！防止图片被压扁或拉长 */
+      object-fit: cover;
     }
   
     /* 3. 这个也可以去掉或者设为0，因为上面已经有 gap: 10px 了 */
