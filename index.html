@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <title>人杰地灵</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" href="logo/favicon.png" type="image/png">
 <!--
 
 SugarCube (v2.36.1): A free (gratis and libre) story format.
@@ -258,7 +257,6 @@ h2 { margin-top: 10px; border-left: 5px solid #dcd8c0; padding-left: 10px; text-
     width: 100%;
     height: auto;
     display: block;
-    filter: sepia(0.3) contrast(1.1); /* 加一点复古滤镜 */
 }
 
 /* 照片底部的如手写般的文字 */
@@ -315,6 +313,112 @@ button:active {
 }
 
 
+/* 让卡片里的链接隐形、铺满且没有下划线 */
+.card-link {
+    display: block;      /* 让链接变成块块，填满整个卡片 */
+    width: 100%;
+    height: 100%;
+    text-decoration: none !important; /* 去掉原本的下划线 */
+    color: inherit !important;        /* 颜色跟随卡片，不要变蓝 */
+    cursor: pointer;                  /* 鼠标放上去变小手 */
+}
+
+
+/* === 人物档案页专用布局 === */
+.profile-container {
+   position: relative;
+    display: flex; /* 开启弹性布局 */
+    gap: 40px;     /* 左右两栏的间距 */
+    align-items: flex-start; /* 顶部对齐 */
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.4); /* 整体背景稍微加深一点 */
+    padding: 30px;
+    border: 1px solid #444;
+}
+
+
+.profile-container::before {
+    content: 'YoRHa UI//SYSTEM';
+    position: absolute;
+    
+    /* 1. 核心定位：刚好压在 1px 的边框线上 */
+    top: -15px; 
+    left: 15px;
+    
+    background: #1a1a1a; 
+    font-size: 10px;
+    color: #888;
+    padding: 0 8px;
+    letter-spacing: 1px;
+    font-family: monospace;
+    z-index: 1;
+}
+
+
+.profile-left img {
+    max-width: 220px; 
+    width: 90%;    /* 让它在不超过 max-width 的前提下自适应 */
+    height: auto;
+    border: 1px solid #5d5a4b; 
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    
+    /* 让图片在左侧区域居中 (可选) */
+    display: block;
+    margin: 0 auto;
+}
+
+.profile-right {
+    flex: 1.5;           /* 占用 1.5 份宽度 (比左边宽一点) */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;           /* 每一行数据的间距 */
+}
+
+/* 每一行数据的样式 */
+.info-row {
+    border-bottom: 1px dashed #555; /* 虚线分割 */
+    padding-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+}
+
+.info-label {
+    color: #888;         /* 标签颜色 (灰色) */
+    font-weight: bold;
+    width: 100px;        /* 标签固定宽度，对齐好看 */
+    font-size: 14px;
+}
+
+.info-value {
+    color: #dcd8c0;      /* 内容颜色 (米色) */
+    font-size: 16px;
+    font-family: "Microsoft YaHei", sans-serif;
+    flex: 1;
+}
+
+/* 手机端适配：屏幕变窄时变成上下排列 */
+@media screen and (max-width: 768px) {
+    .profile-container {
+        flex-direction: column; /* 变成垂直排列 */
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .profile-left {
+        max-width: 200px !important; 
+        
+        margin: 0 auto 20px auto; /* 图片居中，且底部留出空隙 */
+        width: 100%;
+    }
+    
+    .profile-left img {
+        width: 100% !important;
+        max-width: 100% !important; 
+    }
+}
+
+
 
 @media screen and (max-width: 768px) {
 
@@ -362,12 +466,14 @@ button:active {
         font-size: 10px;
     }
     
-    /* 4. Members 列表 (强制 3 列) */
+    /* 4. Members 列表 (强制 5 列) */
     .grid {
         display: grid;
-        /* 强制一行 3 个，不管屏幕多窄 */
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
+
+        grid-template-columns: repeat(5, 1fr) !important;
+
+        gap: 4px !important; 
+
         padding: 5px 0;
         width: 100%;
     }
@@ -406,6 +512,15 @@ button:active {
         width: 100%;
         margin-top: 10px;
     }
+  
+  .back-btn-box {
+        margin-top: 80px !important;
+        margin-bottom: 20px !important;
+        text-align: left; 
+    }
+  
+  
+  
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="700,275" size="100,100">&lt;div style=&quot;text-align: center; margin-top: 30px;&quot;&gt; &lt;img src=&quot;https://files.wujicode.cn/w/open/dnf_universe_app/g6BgVUJh.jpeg&quot; 
          alt=&quot;公会主视觉&quot;
          style=&quot;width: 100%; 
@@ -465,333 +580,277 @@ button:active {
         &lt;div style=&quot;flex: 2; color: #ccc;&quot;&gt;
             &lt;p style=&quot;margin-bottom: 4px; color: #fff;&quot;&gt;&lt;strong&gt;&gt;&gt; 记录片段 01：起源&lt;/strong&gt;&lt;/p&gt;
             &lt;p style=&quot;margin-top: 0; line-height: 1.5; font-size: 0.95em;&quot;&gt;
-                根据旧世界遗留数据重构显示，该公会由 &lt;strong&gt;[豆本豆]&lt;/strong&gt; 个体于2024年5月初次构建。
+                根据旧世界遗留数据重构显示，该公会由 &lt;strong&gt;[豆本豆儿]&lt;/strong&gt; 个体于2024年5月初次构建。
                 在数据洪流的冲刷下，其存在的痕迹依然刻录在核心代码深处。
             &lt;/p&gt;
             &lt;hr style=&quot;border-color: #444; border-style: dashed; margin: 15px 0;&quot;&gt;
             &lt;p style=&quot;margin-bottom: 4px; color: #fff;&quot;&gt;&lt;strong&gt;&gt;&gt; 记录片段 02：数据已损毁&lt;/strong&gt;&lt;/p&gt;
             &lt;p style=&quot;margin-top: 0; line-height: 1.5; font-size: 0.95em;&quot;&gt;
-                第二代会长标识为[恒武神] &lt;strong&gt;&lt;/strong&gt;。&lt;br&gt;
+                第二代会长标识为&lt;strong&gt; [恒武神]&lt;/strong&gt;。&lt;br&gt;
                 &lt;span style=&quot;color: #ff5555; font-family: monospace; font-size: 0.9em;&quot;&gt;⚠ SYSTEM_ERR: 时间轴扇区损坏。&lt;/span&gt;&lt;br&gt;
                 在此之前为副会长单元，具体管理周期的起止时间已无法回溯。
             &lt;/p&gt;
             &lt;hr style=&quot;border-color: #444; border-style: dashed; margin: 15px 0;&quot;&gt;
             &lt;p style=&quot;margin-bottom: 4px; color: #fff;&quot;&gt;&lt;strong&gt;&gt;&gt; 记录片段 03：大转移&lt;/strong&gt;&lt;/p&gt;
             &lt;p style=&quot;margin-top: 0; line-height: 1.5; font-size: 0.95em;&quot;&gt;
-                第三代会长 &lt;strong&gt;[帝君]&lt;/strong&gt;。&lt;br&gt;
+                第三代会长标识为&lt;strong&gt; [帝君]&lt;/strong&gt;。&lt;br&gt;
                 在此之前为副会长单元，负责执行“公会招新”与“签到协议”的日常维护。&lt;br&gt;
                 &lt;span style=&quot;color: #dcd8c0;&quot;&gt;公会在此期间遭遇不明攻击，流失部分人员。&lt;/span&gt;&lt;br&gt;
                 &lt;span style=&quot;display:block; margin-top: 5px; color: #aaa; font-family: monospace; font-size: 0.9em; background: rgba(255,255,255,0.05); padding: 2px 5px;&quot;&gt;
                     &gt; 正式管理日志：2024.12.25 - 2025.02.06 &lt;/span&gt;&lt;/p&gt;
             &lt;hr style=&quot;border-color: #444; border-style: dashed; margin: 15px 0;&quot;&gt;
-            &lt;p style=&quot;margin-bottom: 4px; color: #fff;&quot;&gt;&lt;strong&gt;&gt;&gt; 记录片段 04：承接者&lt;/strong&gt;&lt;/p&gt;
+            &lt;p style=&quot;margin-bottom: 4px; color: #fff;&quot;&gt;&lt;strong&gt;&gt;&gt; 记录片段 04：合并&lt;/strong&gt;&lt;/p&gt;
             &lt;p style=&quot;margin-top: 0; line-height: 1.5; font-size: 0.95em;&quot;&gt;
-                当前指挥权移交至第四代会长&lt;br&gt;
-                &lt;strong&gt;Quervernunft&lt;/strong&gt;&lt;br&gt;
+                当前指挥权移交至第四代会长 &lt;strong&gt;[Quervernunft]。&lt;/strong&gt;
                 &lt;span style=&quot;display:block; margin-top: 8px;&quot;&gt;
-                    该个体目前持有最高权限 KEY。在他的逻辑协议下，公会被定义为“自由区域”。 &lt;/span&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;br&gt;
+                    该个体目前持有最高权限 KEY。在他的逻辑协议下，公会被定义为“自由区域”。2025年3月检测到大规模数据并入， 来自 [中铁兄弟会] 的多名个体已接入公会协议，共同意志正在协同进化。 &lt;/span&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;br&gt;
     &lt;div style=&quot;text-align: center; border: 1px solid #666; padding: 10px; margin-top: 10px; background: rgba(255,255,255,0.05);&quot;&gt;
         &lt;p style=&quot;margin:0; font-size: 0.8em; letter-spacing: 3px; color: #aaa;&quot;&gt;GLORY TO MANKIND?&lt;/p&gt;
         &lt;p style=&quot;margin:5px 0 0 0; color: #dcd8c0;&quot;&gt;NO, GLORY TO FRIENDS.&lt;/p&gt;
     &lt;/div&gt;
     </tw-passagedata><tw-passagedata pid="4" name="Members" tags="" position="950,275" size="100,100">&lt;div class=&quot;container&quot;&gt;
     &lt;h2&gt;MEMBERS_LIST&lt;/h2&gt;&lt;div class=&quot;grid&quot;&gt;
-    &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/CoCoN丶红眼.png&quot; alt=&quot;CoCoN丶红眼&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;CoCoN丶红眼&lt;/div&gt;
+        &lt;div class=&quot;card&quot;&gt;
+            &lt;a data-passage=&quot;lonely 芒果&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/lonely 芒果.webp&quot; alt=&quot;lonely 芒果&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;lonely 芒果&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/CoCoN丶红神.png&quot; alt=&quot;CoCoN丶红神&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;CoCoN丶红神&lt;/div&gt;
+            &lt;a data-passage=&quot;Quervernunft&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/Quervernunft.webp&quot; alt=&quot;Quervernunft&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;Quervernunft&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/ICECO2.png&quot; alt=&quot;ICECO2&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;ICECO2&lt;/div&gt;
+            &lt;a data-passage=&quot;丨帝丿君丨&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/丨帝丿君丨.webp&quot; alt=&quot;丨帝丿君丨&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;丨帝丿君丨&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/Jay、沧海.png&quot; alt=&quot;Jay、沧海&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;Jay、沧海&lt;/div&gt;
+            &lt;a data-passage=&quot;初升的東曦&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/初升的東曦.webp&quot; alt=&quot;初升的東曦&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;初升的東曦&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/Quervernunft.png&quot; alt=&quot;Quervernunft&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;Quervernunft&lt;/div&gt;
+            &lt;a data-passage=&quot;刹那清風&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/刹那清風.webp&quot; alt=&quot;刹那清風&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;刹那清風&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/丨帝丿君丨.png&quot; alt=&quot;丨帝丿君丨&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;丨帝丿君丨&lt;/div&gt;
+            &lt;a data-passage=&quot;剑神顺哥哥&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/剑神顺哥哥.webp&quot; alt=&quot;剑神顺哥哥&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;剑神顺哥哥&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/丶无芯.png&quot; alt=&quot;丶无芯&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;丶无芯&lt;/div&gt;
+            &lt;a data-passage=&quot;古神之星&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/古神之星.webp&quot; alt=&quot;古神之星&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;古神之星&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/丿大胖儿灬.png&quot; alt=&quot;丿大胖儿灬&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;丿大胖儿灬&lt;/div&gt;
+            &lt;a data-passage=&quot;天使宝贝洁&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/天使宝贝洁.webp&quot; alt=&quot;天使宝贝洁&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;天使宝贝洁&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/乔霓娜乀碧漾.png&quot; alt=&quot;乔霓娜乀碧漾&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;乔霓娜乀碧漾&lt;/div&gt;
+            &lt;a data-passage=&quot;寶寶潴&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/寶寶潴.webp&quot; alt=&quot;寶寶潴&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;寶寶潴&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/做PPT的.png&quot; alt=&quot;做PPT的&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;做PPT的&lt;/div&gt;
+            &lt;a data-passage=&quot;小帅哥love&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/小帅哥love.webp&quot; alt=&quot;小帅哥love&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;小帅哥love&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/冰薄荷气.png&quot; alt=&quot;冰薄荷气&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;冰薄荷气&lt;/div&gt;
+            &lt;a data-passage=&quot;恆武神&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/恆武神.webp&quot; alt=&quot;恆武神&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;恆武神&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/初升的東曦.png&quot; alt=&quot;初升的東曦&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;初升的東曦&lt;/div&gt;
+            &lt;a data-passage=&quot;我是娃哈哈&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/我是娃哈哈.webp&quot; alt=&quot;我是娃哈哈&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;我是娃哈哈&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/北境老钝刀.png&quot; alt=&quot;北境老钝刀&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;北境老钝刀&lt;/div&gt;
+            &lt;a data-passage=&quot;柑蕉吉梨裸釉&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/柑蕉吉梨裸釉.webp&quot; alt=&quot;柑蕉吉梨裸釉&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;柑蕉吉梨裸釉&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/叭叭二十一.png&quot; alt=&quot;叭叭二十一&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;叭叭二十一&lt;/div&gt;
+            &lt;a data-passage=&quot;永远青春年少&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/永远青春年少.webp&quot; alt=&quot;永远青春年少&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;永远青春年少&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/启眞.png&quot; alt=&quot;启眞&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;启眞&lt;/div&gt;
+            &lt;a data-passage=&quot;海马集团&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/海马集团.webp&quot; alt=&quot;海马集团&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;海马集团&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/咋又给打哭了.png&quot; alt=&quot;咋又给打哭了&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;咋又给打哭了&lt;/div&gt;
+            &lt;a data-passage=&quot;狂战坚毅不导&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/狂战坚毅不导.webp&quot; alt=&quot;狂战坚毅不导&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;狂战坚毅不导&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/咪king.png&quot; alt=&quot;咪king&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;咪king&lt;/div&gt;
+            &lt;a data-passage=&quot;狗托御剑&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/狗托御剑.webp&quot; alt=&quot;狗托御剑&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;狗托御剑&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/地蛋鸡块.png&quot; alt=&quot;地蛋鸡块&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;地蛋鸡块&lt;/div&gt;
+            &lt;a data-passage=&quot;狙安思危&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/狙安思危.webp&quot; alt=&quot;狙安思危&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;狙安思危&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/大天使21062.png&quot; alt=&quot;大天使21062&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;大天使21062&lt;/div&gt;
+            &lt;a data-passage=&quot;神木麗Reik&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/神木麗Reik.webp&quot; alt=&quot;神木麗Reik&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;神木麗Reik&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/天鉴天剑.png&quot; alt=&quot;天鉴天剑&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;天鉴天剑&lt;/div&gt;
+            &lt;a data-passage=&quot;至人天下式&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/至人天下式.webp&quot; alt=&quot;至人天下式&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;至人天下式&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/妹妹的真知棒.png&quot; alt=&quot;妹妹的真知棒&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;妹妹的真知棒&lt;/div&gt;
+            &lt;a data-passage=&quot;芒果MY&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/芒果MY.webp&quot; alt=&quot;芒果MY&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;芒果MY&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/尛猦.png&quot; alt=&quot;尛猦&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;尛猦&lt;/div&gt;
+            &lt;a data-passage=&quot;茫然的瞎子&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/茫然的瞎子.webp&quot; alt=&quot;茫然的瞎子&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;茫然的瞎子&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/帅比原武.png&quot; alt=&quot;帅比原武&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;帅比原武&lt;/div&gt;
+            &lt;a data-passage=&quot;薅枭&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/薅枭.webp&quot; alt=&quot;薅枭&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;薅枭&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/恆武神.png&quot; alt=&quot;恆武神&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;恆武神&lt;/div&gt;
+            &lt;a data-passage=&quot;豆本豆儿&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/豆本豆儿.webp&quot; alt=&quot;豆本豆儿&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;豆本豆儿&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/悟道小gg.png&quot; alt=&quot;悟道小gg&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;悟道小gg&lt;/div&gt;
+            &lt;a data-passage=&quot;赵子尨、&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/赵子尨、.webp&quot; alt=&quot;赵子尨、&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;赵子尨、&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/晚枫风未起.png&quot; alt=&quot;晚枫风未起&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;晚枫风未起&lt;/div&gt;
+            &lt;a data-passage=&quot;米神一号&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/米神一号.webp&quot; alt=&quot;米神一号&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;米神一号&lt;/div&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/晚枫风未起2.png&quot; alt=&quot;晚枫风未起2&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;晚枫风未起2&lt;/div&gt;
+    &lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="丨帝丿君丨" tags="" position="450,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/丨帝丿君丨.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;丨帝丿君丨&lt;/h1&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/柑蕉吉梨裸釉.png&quot; alt=&quot;柑蕉吉梨裸釉&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;柑蕉吉梨裸釉&lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/椿湫.png&quot; alt=&quot;椿湫&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;椿湫&lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;第三代会长&lt;/span&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/海梦丶喜多川.png&quot; alt=&quot;海梦丶喜多川&quot;&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;海梦丶喜多川&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/海马集团.png&quot; alt=&quot;海马集团&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;海马集团&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/热情乃剑魂66.png&quot; alt=&quot;热情乃剑魂66&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;热情乃剑魂66&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/爻爻爻爻爻爻.png&quot; alt=&quot;爻爻爻爻爻爻&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;爻爻爻爻爻爻&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/狂战坚毅不导.png&quot; alt=&quot;狂战坚毅不导&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;狂战坚毅不导&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/猫王sin.png&quot; alt=&quot;猫王sin&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;猫王sin&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/祉为你浪漫.png&quot; alt=&quot;祉为你浪漫&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;祉为你浪漫&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/耀眼的小灯笼.png&quot; alt=&quot;耀眼的小灯笼&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;耀眼的小灯笼&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/花入半冬.png&quot; alt=&quot;花入半冬&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;花入半冬&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/茫然的瞎子.png&quot; alt=&quot;茫然的瞎子&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;茫然的瞎子&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/莆田陈乔南.png&quot; alt=&quot;莆田陈乔南&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;莆田陈乔南&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/豆本豆儿.png&quot; alt=&quot;豆本豆儿&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;豆本豆儿&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/赵子尨丶.png&quot; alt=&quot;赵子尨丶&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;赵子尨丶&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/遗忘唔际.png&quot; alt=&quot;遗忘唔际&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;遗忘唔际&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/重庆第一女剑.png&quot; alt=&quot;重庆第一女剑&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;重庆第一女剑&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/阿宣宣.png&quot; alt=&quot;阿宣宣&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;阿宣宣&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/马上过来i.png&quot; alt=&quot;马上过来i&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;马上过来i&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/鬼影哒忍者67.png&quot; alt=&quot;鬼影哒忍者67&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;鬼影哒忍者67&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/麻烦6.png&quot; alt=&quot;麻烦6&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;麻烦6&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;card&quot;&gt;
-            &lt;div class=&quot;img-box&quot;&gt;
-                &lt;img src=&quot;images/黑系小流氓.png&quot; alt=&quot;黑系小流氓&quot;&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;card-name&quot;&gt;黑系小流氓&lt;/div&gt;
         &lt;/div&gt;
 
-    &lt;/div&gt; &lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Member_01" tags="" position="450,450" size="100,100"></tw-passagedata><tw-passagedata pid="6" name="Gallery" tags="" position="1075,275" size="100,100">&lt;div class=&quot;container&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Gallery" tags="" position="1075,275" size="100,100">&lt;div class=&quot;container&quot;&gt;
     &lt;h2 style=&quot;border-bottom: 2px solid #5d5a4b; padding-bottom: 10px; margin-bottom: 20px;&quot;&gt;ARCHIVE: MEMORY_RECORDS
     &lt;/h2&gt;
     &lt;div class=&quot;gallery-container&quot;&gt;
@@ -803,6 +862,838 @@ button:active {
     &lt;p style=&quot;text-align: center; color: #666; font-size: 12px; margin-top: 30px;&quot;&gt;
         End of Records // No More Data
     &lt;/p&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="ICECO2" tags="" position="575,825" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/ICECO2.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;ICECO2&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;魔道学者（Witch） &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;副会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt; 70版本初期奥菲利亚大区第一井盖、开服至今全勤玩家、公会贡献度第一&lt;/span&gt; 
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="lonely 芒果" tags="" position="575,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/lonely 芒果.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;lonely 芒果&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;副会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="初升的東曦" tags="" position="450,700" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/初升的東曦.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;初升的東曦&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;枪炮师 （Launcher）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;前副会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="刹那清風" tags="" position="700,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/刹那清風.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;刹那清風&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="剑神顺哥哥" tags="" position="700,950" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/剑神顺哥哥.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;剑神顺哥哥&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;剑魂 （Blade Master）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Quervernunft" tags="" position="950,575" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/Quervernunft.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;Quervernunft&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;契魔者（Demon Slayer） &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;第四代会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt; 
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="古神之星" tags="" position="575,700" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/古神之星.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;古神之星&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;枪炮师 （Launcher）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="寶寶潴" tags="" position="825,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/寶寶潴.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;寶寶潴&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="天使宝贝洁" tags="" position="575,575" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/天使宝贝洁.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;天使宝贝洁&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;流浪武士 （Vagabond）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="小帅哥love" tags="" position="450,950" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/小帅哥love.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;小帅哥love&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;剑魂 （Blade Master）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="恆武神" tags="" position="825,825" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/恆武神.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;恆武神&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;散打 （Striker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;第二代会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="我是娃哈哈" tags="" position="950,825" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/我是娃哈哈.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;我是娃哈哈&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;散打 （Striker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="柑蕉吉梨裸釉" tags="" position="450,825" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/柑蕉吉梨裸釉.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;柑蕉吉梨裸釉&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;散打 （Striker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="永远青春年少" tags="" position="950,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/永远青春年少.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;永远青春年少&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="海马集团" tags="" position="1075,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/海马集团.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;海马集团&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;副会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="狂战坚毅不导" tags="" position="825,700" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/狂战坚毅不导.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;狂战坚毅不导&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="狗托御剑" tags="" position="450,575" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/狗托御剑.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;狗托御剑&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;驭剑士（Sword Master） &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt; 
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="狙安思危" tags="" position="575,950" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/狙安思危.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;狙安思危&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;剑魂 （Blade Master）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;第一届装扮大赛亚军&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="神木麗Reik" tags="" position="700,575" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/神木麗Reik.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;神木麗Reik&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;契魔者（Demon Slayer） &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;优秀成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt; 
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="至人天下式" tags="" position="825,575" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/至人天下式.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;至人天下式&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;契魔者（Demon Slayer） &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt; 
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="芒果MY" tags="" position="950,700" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/芒果MY.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;芒果MY&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;副会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;充了1800&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="茫然的瞎子" tags="" position="825,950" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/茫然的瞎子.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;茫然的瞎子&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;阿修罗 （Asura）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="薅枭" tags="" position="1325,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/薅枭.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;薅枭&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;优秀成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="豆本豆儿" tags="" position="700,700" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/豆本豆儿.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;豆本豆儿&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;枪炮师 （Launcher）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;初代会长&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="31" name="赵子尨、" tags="" position="1200,450" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/赵子尨、.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;赵子尨、&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;狂战士 （Berserker）&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;优秀成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;武尊高手&lt;/span&gt;
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="米神一号" tags="" position="700,825" size="100,100">&lt;div style=&quot;margin-bottom: 20px;&quot;&gt;
+    &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
+    &lt;/div&gt;
+&lt;div class=&quot;profile-container&quot;&gt;
+    &lt;div class=&quot;profile-left&quot;&gt;
+        &lt;img src=&quot;HRI/米神一号.png&quot; alt=&quot;立绘&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;profile-right&quot;&gt;
+        &lt;div style=&quot;border-left: 4px solid #dcd8c0; padding-left: 15px; margin-bottom: 10px;&quot;&gt;
+            &lt;h1 style=&quot;margin: 0; font-size: 28px; color: #fff;&quot;&gt;米神一号&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;职业 CLASS&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;魔道学者（Witch） &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;公会职位&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot;&gt;普通成员&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;info-row&quot;&gt;
+            &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;&lt;/span&gt; 
+        &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
+            &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
+            &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
+                [ 暂无详细档案记录 ]
+                &lt;br&gt;
+                &lt;em style=&quot;font-size: 12px; color: #555;&quot;&gt;Found in Archive...&lt;/em&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
 &lt;/div&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
