@@ -552,56 +552,89 @@ button:active {
   
 /* === 音乐播放器舱体 (位置修正版) === */
 #yorha-music-pod {
-    /* 1. 绝对定位：右上角 */
     position: fixed !important;
-    top: 60px !important;    /* 导航栏下方 */
-    right: 15px !important;  /* 靠右 */
-    
-    /* 2. 尺寸调整：改窄一点，因为 ON/OFF 字很短 */
-    width: 90px; 
-    
-    /* 3. 外观风格 */
-    background: rgba(30, 30, 30, 0.95);
-    border: 1px solid #5d5a4b;
-    padding: 8px;
-    z-index: 99999; /* 最顶层 */
-    
-    /* 装饰效果 */
+    top: 60px !important;
+    right: 15px !important;
+    width: 100px !important;
+    text-align: center; 
+    background: rgba(20, 20, 20, 0.9); /* 深色半透明背景 */
+    border: 1px solid #4a483d;         /* 更加暗淡的棕色边框 */
+    padding: 6px;
+    z-index: 99999;
+    backdrop-filter: blur(4px);
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    backdrop-filter: blur(2px);
 }
 
-/* 标题文字 SYSTEM BGM */
 .pod-title {
     color: #888;
-    font-size: 10px; /* 字体改小，更像机器参数 */
+    font-size: 9px;
     text-align: center;
-    margin-bottom: 4px;
-    font-family: monospace; /* 机械字体 */
-    letter-spacing: 0px;
+    margin-bottom: 5px;
+    font-family: monospace;
+    letter-spacing: 1px;
+    opacity: 0.8;
 }
 
-/* 按钮样式 */
+/* === 核心：高质感按钮 === */
 #pod-toggle-btn {
     width: 100%;
-    
-    /* 默认状态 (OFF) */
-    background: #2b2b2b; 
-    color: #888;
-    border: 1px solid #444;
-    
+    height: 24px;
     cursor: pointer;
-    padding: 2px 0; /* 变薄一点 */
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
-    font-family: Arial, sans-serif;
-    transition: all 0.2s;
+    font-family: "Microsoft YaHei", monospace;
+    letter-spacing: 2px; /* 增加字间距，更像系统UI */
+    border: 1px solid #555;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 机械感过渡 */
+    
+    /* 1. 默认状态 (OFF) 的质感 */
+    background-color: #2b2b2b;
+    color: #666;
+    
+    /* 2. 添加扫描线纹理 (关键！) */
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.3) 50%
+    );
+    background-size: 100% 4px; /* 每4像素一条线 */
+    
+    /* 内阴影，制造凹陷感 */
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
 }
 
-/* 鼠标悬停 */
+/* 鼠标悬停 (未激活时) */
 #pod-toggle-btn:hover {
+    border-color: #888;
+    color: #999;
+    box-shadow: inset 0 0 2px rgba(255,255,255,0.1);
+}
+
+#pod-toggle-btn.active {
+    /* 1. 颜色反转：米色背景 */
+    background-color: #dcd8c0; 
+    color: #2b2b2b;
     border-color: #dcd8c0;
-    color: #dcd8c0;
+
+    /* 2. 纹理继续保留，但稍微淡一点 */
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 50%
+    );
+    
+    /* 3. 关键：外发光 (Bloom) + 内发光 */
+    box-shadow: 
+        0 0 10px rgba(220, 216, 192, 0.6), /* 外发光 */
+        inset 0 0 5px rgba(255,255,255,0.8); /* 内高光，像屏幕亮起 */
+        
+    text-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+/* 激活状态下的悬停 */
+#pod-toggle-btn.active:hover {
+    background-color: #e6e2ca; /* 更亮一点 */
+    box-shadow: 0 0 15px rgba(220, 216, 192, 0.9); /* 光晕增强 */
 }
 
 /* 手机端适配：位置也相应下移 */
@@ -621,7 +654,7 @@ button:active {
     }
 
   
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* === YoRHa BGM Module (ON/OFF Logic) === */
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* === YoRHa BGM Module (Playlist Loop Edition) === */
 
 function createMusicPod() {
     // 防止重复创建
@@ -630,16 +663,23 @@ function createMusicPod() {
     var pod = document.createElement('div');
     pod.id = 'yorha-music-pod';
     
+    // === 1. 定义播放列表 ===
+    var playlist = [
+        'https://cdn.jsdelivr.net/gh/xyz7772/rjdlweb@main/bgms/leshphon.mp3',
+        'https://cdn.jsdelivr.net/gh/xyz7772/rjdlweb@main/bgms/boss2.mp3'
+    ];
+    var currentIndex = 0; // 当前播放第几首 (0开始)
+
     var audio = document.createElement('audio');
     audio.id = 'bgm-player';
-    audio.loop = true; 
-    // 你提供的新音乐链接
-    audio.src = 'https://cdn.jsdelivr.net/gh/xyz7772/rjdlweb@main/bgms/boss2.mp3'; 
+    audio.loop = false; // ★ 关掉单曲循环，由代码控制列表循环
+    audio.preload = "auto";
     
-    // 最大音量设置 (0.4 = 40%)
+    // 初始化第一首
+    audio.src = playlist[0];
+    
     var maxVolume = 0.4; 
 
-    // 初始界面：默认为 OFF
     pod.innerHTML = `
         <div class="pod-controls">
             <div class="pod-title">SYS. BGM</div>
@@ -649,47 +689,70 @@ function createMusicPod() {
 
     document.documentElement.appendChild(pod);
 
+    // === 2. 核心功能：自动播放下一首 ===
+    audio.addEventListener('ended', function() {
+        // 索引 +1，如果超过列表长度就回到 0
+        currentIndex = (currentIndex + 1) % playlist.length;
+        
+        // 切换歌曲链接
+        audio.src = playlist[currentIndex];
+        
+        // 立即播放下一首
+        var playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => console.log("切歌失败:", error));
+        }
+    });
+
     setTimeout(function() {
         var btn = document.getElementById('pod-toggle-btn');
         if(btn) {
             btn.addEventListener('click', function() {
                 
                 if (audio.paused) {
-                    // --- 播放逻辑 (变为 ON) ---
-                    audio.volume = 0; // 先静音准备淡入
+                    // --- [开始/继续播放] ---
                     
-                    audio.play().then(() => {
-                        // 状态变为 ON (亮色背景)
-                        btn.innerText = "ON";
-                        btn.style.color = "#2b2b2b";      // 深色字
-                        btn.style.background = "#dcd8c0"; // 米色亮背景
+                    // 如果是刚开始播第一首，做一个淡入效果
+                    if(audio.currentTime === 0) {
+                        audio.volume = 0;
+                    }
 
-                        // 音量淡入动画
-                        var fadeTimer = setInterval(function() {
+                    var playPromise = audio.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            btn.innerText = "OFF";
+                            btn.style.color = "#2b2b2b";
+                            btn.style.background = "#dcd8c0";
+
+                            // 只有音量小于 maxVolume 时才执行淡入
                             if (audio.volume < maxVolume) {
-                                audio.volume = Math.min(maxVolume, audio.volume + 0.01);
-                            } else {
-                                clearInterval(fadeTimer);
+                                var fadeTimer = setInterval(function() {
+                                    if (audio.volume < maxVolume) {
+                                        audio.volume = Math.min(maxVolume, audio.volume + 0.02);
+                                    } else {
+                                        clearInterval(fadeTimer);
+                                    }
+                                }, 70);
                             }
-                        }, 50); 
 
-                    }).catch(e => alert("播放被拦截，请再试一次"));
-
+                        }).catch(error => {
+                            console.error(error);
+                            alert("播放失败，请检查网络或 GitHub 链接有效性");
+                        });
+                    }
                 } else {
-                    // --- 暂停逻辑 (变为 OFF) ---
+                    // --- [暂停播放] ---
                     audio.pause();
-                    
-                    // 状态变为 OFF (深色背景)
-                    btn.innerText = "OFF";
-                    btn.style.color = "#888";         // 灰色字
-                    btn.style.background = "#2b2b2b"; // 深色暗背景
+                    btn.innerText = "ON";
+                    btn.style.color = "#888";
+                    btn.style.background = "#2b2b2b";
                 }
             });
         }
     }, 500);
 }
 
-// 启动
 createMusicPod();
 setInterval(createMusicPod, 1000);</script><tw-passagedata pid="1" name="Start" tags="" position="700,275" size="100,100">&lt;div style=&quot;text-align: center; margin-top: 30px;&quot;&gt; &lt;img src=&quot;https://files.wujicode.cn/w/open/dnf_universe_app/g6BgVUJh.jpeg&quot; 
          alt=&quot;公会主视觉&quot;
@@ -783,6 +846,14 @@ setInterval(createMusicPod, 1000);</script><tw-passagedata pid="1" name="Start" 
  &lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="Members" tags="" position="950,275" size="100,100">&lt;div class=&quot;members-bg-wrapper&quot;&gt;
 &lt;div class=&quot;container&quot;&gt;
     &lt;h2&gt;MEMBERS_LIST&lt;/h2&gt;&lt;div class=&quot;grid&quot;&gt;
+        &lt;div class=&quot;card&quot;&gt;
+            &lt;a data-passage=&quot;ICECO2&quot; class=&quot;card-link&quot;&gt;
+                &lt;div class=&quot;img-box&quot;&gt;
+                    &lt;img src=&quot;images/ICECO2.webp&quot; alt=&quot;ICECO2&quot; loading=&quot;lazy&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-name&quot;&gt;ICECO2&lt;/div&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
         &lt;div class=&quot;card&quot;&gt;
             &lt;a data-passage=&quot;lonely 芒果&quot; class=&quot;card-link&quot;&gt;
                 &lt;div class=&quot;img-box&quot;&gt;
@@ -1024,7 +1095,7 @@ setInterval(createMusicPod, 1000);</script><tw-passagedata pid="1" name="Start" 
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
- &lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="丨帝丿君丨" tags="" position="450,450" size="100,100">&lt;div style=&quot;margin-bottom: 10px; margin-top: 50px; text-align: left;&quot;&gt;
+ &lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="丨帝丿君丨" tags="" position="450,450" size="100,100">&lt;div style=&quot;margin-bottom: -10px; margin-top: 35px; text-align: left;&quot;&gt;
     &lt;&lt;button &quot;&lt;&lt; 返回成员列表&quot; &quot;Members&quot;&gt;&gt;&lt;&lt;/button&gt;&gt; 
     &lt;/div&gt;
 &lt;div class=&quot;profile-container&quot;&gt;
@@ -1089,7 +1160,7 @@ setInterval(createMusicPod, 1000);</script><tw-passagedata pid="1" name="Start" 
         &lt;/div&gt;
         &lt;div class=&quot;info-row&quot;&gt;
             &lt;span class=&quot;info-label&quot;&gt;荣誉 HONOR&lt;/span&gt;
-            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt; 70版本初期奥菲利亚大区第一井盖、开服至今全勤玩家、公会贡献度第一&lt;/span&gt; 
+            &lt;span class=&quot;info-value&quot; style=&quot;color: #777;&quot;&gt;开服至今全勤玩家、公会贡献度第一、第一届装扮大赛季军&lt;/span&gt; 
         &lt;/div&gt;&lt;div class=&quot;info-row&quot; style=&quot;border-bottom: none; flex-direction: column;&quot;&gt;
             &lt;span class=&quot;info-label&quot; style=&quot;margin-bottom: 4px;&quot;&gt;简介 BIO&lt;/span&gt;
             &lt;div class=&quot;info-value&quot; style=&quot;line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px;&quot;&gt;
